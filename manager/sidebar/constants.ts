@@ -7,34 +7,14 @@ import ListOrderedIcon from 'lucide-svelte/icons/list-ordered';
 
 export const SIDEBAR_ITEMS = [
 	{
-		title: 'Дашборд',
+		title: 'Главная',
 		icon: DashboardIcon,
-		href: '/admin'
+		href: '/manager'
 	},
 	{
-		title: 'Компании',
-		icon: BuildingIcon,
-		href: '/admin/companies'
-	},
-	{
-		title: 'Пользователи',
-		icon: UsersIcon,
-		href: '/admin/users'
-	},
-	{
-		title: 'Рестораны',
+		title: 'Мои рестораны',
 		icon: UtensilsIcon,
-		href: '/admin/restaurants'
-	},
-	{
-		title: 'Меню',
-		icon: BeefIcon,
-		href: '/admin/menus'
-	},
-	{
-		title: 'Заказы',
-		icon: ListOrderedIcon,
-		href: '/admin/orders'
+		href: '/manager/restaurants'
 	}
 ];
 
