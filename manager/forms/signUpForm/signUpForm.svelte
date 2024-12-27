@@ -45,11 +45,7 @@
 	);
 	const address = field('address', '', [required()], { checkOnInit: true });
 
-	const signUpForm = form(phone, email, password, name, inn, address);
-
-	password.subscribe((state) => {
-		console.log(state);
-	});
+	const signUpForm = form(phone, email, password, confirmPassword, name, inn, address);
 
 	signUpForm.subscribe((state) => {
 		// console.log(state);
@@ -62,6 +58,7 @@
 				phone: $phone.value,
 				email: $email.value,
 				password: $password.value,
+				confirmPassword: $confirmPassword.value,
 				name: $name.value,
 				inn: $inn.value,
 				address: $address.value
