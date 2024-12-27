@@ -1,4 +1,5 @@
-import Root from "./input.svelte";
+import Root from './input.svelte';
+import type { MaskInputOptions } from 'maska';
 
 export type FormInputEvent<T extends Event = Event> = T & {
 	currentTarget: EventTarget & HTMLInputElement;
@@ -20,10 +21,11 @@ export type InputEvents = {
 	paste: FormInputEvent<ClipboardEvent>;
 	input: FormInputEvent<InputEvent>;
 	wheel: FormInputEvent<WheelEvent>;
+	maskOptions?: MaskInputOptions;
 };
 
 export {
 	Root,
 	//
-	Root as Input,
+	Root as Input
 };
