@@ -2,9 +2,12 @@
 export interface FormFields {
 	phone: string;
 	email: string;
+	firstname: string;
+	lastname: string;
+	surname?: string;
 	password: string;
 	confirmPassword: string;
-	name: string;
+	companyName: string;
 	inn: string;
 	address: string;
 }

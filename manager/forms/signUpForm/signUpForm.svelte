@@ -7,6 +7,7 @@
 	import { pattern, required } from 'svelte-forms/validators';
 	import type { FormFields, SignUpFormProps } from './types';
 	import { VALIDATION_PATTERNS } from './types';
+	import { Separator } from '$lib/components/ui/separator/index.js';
 
 	let { onSubmit = () => {} }: SignUpFormProps = $props();
 
@@ -18,6 +19,9 @@
 	const email = field('email', '', [pattern(VALIDATION_PATTERNS.email), required()], {
 		checkOnInit: true
 	});
+	const firstname = field('firstname', '', [required()], { checkOnInit: true });
+	const lastname = field('lastname', '', [required()], { checkOnInit: true });
+	const surname = field('surname', '', [], { checkOnInit: true });
 	const password = field(
 		'password',
 		'',
@@ -30,7 +34,7 @@
 		[(value) => ({ valid: $password.value === value, name: 'passwordMismatch' }), required()],
 		{ checkOnInit: true }
 	);
-	const name = field('name', '', [required()], { checkOnInit: true });
+	const companyName = field('companyName', '', [required()], { checkOnInit: true });
 	const inn = field(
 		'inn',
 		'',
@@ -45,10 +49,21 @@
 	);
 	const address = field('address', '', [required()], { checkOnInit: true });
 
-	const signUpForm = form(phone, email, password, confirmPassword, name, inn, address);
+	const signUpForm = form(
+		phone,
+		email,
+		firstname,
+		lastname,
+		surname,
+		password,
+		confirmPassword,
+		companyName,
+		inn,
+		address
+	);
 
 	signUpForm.subscribe((state) => {
-		// console.log(state);
+		console.log(state);
 		formIsValid = state.valid;
 	});
 
@@ -57,9 +72,12 @@
 			onSubmit({
 				phone: $phone.value,
 				email: $email.value,
+				firstname: $firstname.value,
+				lastname: $lastname.value,
+				surname: $surname.value,
 				password: $password.value,
 				confirmPassword: $confirmPassword.value,
-				name: $name.value,
+				companyName: $companyName.value,
 				inn: $inn.value,
 				address: $address.value
 			});
@@ -74,7 +92,13 @@
 	</Card.Header>
 	<Card.Content>
 		<div class="grid gap-x-4 gap-y-6">
-			<div class="grid grid-cols-2 gap-4">
+			<div>
+				<h3 class="text-muted-foreground text-1xl py-1 font-semibold tracking-tight">
+					Основная информация
+				</h3>
+				<Separator />
+			</div>
+			<div class="xs:grid-cols-1 grid gap-4 md:grid-cols-2">
 				<div class="grid content-start gap-2">
 					<Label for="phone">Телефон для входа <span class="text-red-500">*</span></Label>
 					<Input
@@ -107,7 +131,22 @@
 				</div>
 			</div>
 
-			<div class="grid grid-cols-2 gap-4">
+			<div class="xs:grid-cols-1 grid gap-4 md:grid-cols-3">
+				<div class="grid content-start gap-2">
+					<Label for="lastname">Фамилия <span class="text-red-500">*</span></Label>
+					<Input id="lastname" bind:value={$lastname.value} required />
+				</div>
+				<div class="grid content-start gap-2">
+					<Label for="firstname">Имя <span class="text-red-500">*</span></Label>
+					<Input id="firstname" bind:value={$firstname.value} required />
+				</div>
+				<div class="grid content-start gap-2">
+					<Label for="surname">Отчество</Label>
+					<Input id="surname" bind:value={$surname.value} />
+				</div>
+			</div>
+
+			<div class="xs:grid-cols-1 grid gap-4 md:grid-cols-2">
 				<div class="grid content-start gap-2">
 					<Label for="password">Пароль <span class="text-red-500">*</span></Label>
 					<Input id="password" bind:value={$password.value} type="password" />
@@ -123,12 +162,18 @@
 					{/if}
 				</div>
 			</div>
-			<div class="grid grid-cols-2 gap-4">
+			<div>
+				<h3 class="text-muted-foreground text-1xl py-1 font-semibold tracking-tight">
+					Информация о компании
+				</h3>
+				<Separator />
+			</div>
+			<div class="xs:grid-cols-1 grid gap-4 md:grid-cols-2">
 				<div class="grid content-start gap-2">
 					<Label for="name">Наименование компании <span class="text-red-500">*</span></Label>
 					<Input
 						id="name"
-						bind:value={$name.value}
+						bind:value={$companyName.value}
 						type="text"
 						placeholder="Введите наименование юр.лица"
 						required
