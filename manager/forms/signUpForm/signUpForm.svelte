@@ -63,7 +63,6 @@
 	);
 
 	signUpForm.subscribe((state) => {
-		console.log(state);
 		formIsValid = state.valid;
 	});
 
